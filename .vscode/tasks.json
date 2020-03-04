@@ -1,0 +1,30 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "ConnectToDockerNetwork",
+            "type": "shell",
+            "command": ".vscode/docker-network-connect.sh",
+            "args": ["pepper1_pepper"],
+            "problemMatcher": []
+        },
+        {
+            "label": "DisconnectFromDockerNetwork",
+            "type": "shell",
+            "command": ".vscode/docker-network-disconnect.sh",
+            "args": ["pepper1_pepper"],
+            "problemMatcher": []
+        },
+        {
+            "label": "AddHosts",
+            "type": "shell",
+            "command": ".vscode/add-hosts.sh",
+            "args": [
+                "pepper1_pepperweblb_1:pepper-web.localvm",
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

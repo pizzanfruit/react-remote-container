@@ -1,0 +1,34 @@
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+    "name": "Node.js 12",
+    "dockerFile": "Dockerfile",
+    // Use 'settings' to set *default* container specific settings.json values on container create.
+    // You can edit these settings after create using File > Preferences > Settings > Remote.
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    // Uncomment the next line to run commands after the container is created.
+    "postCreateCommand": "/post-create.sh ${env:USERNAME}",
+    "workspaceMount": "src=${localWorkspaceFolder},dst=/workspaces/pepper-ui-react,type=bind,consistency=cached",
+    "workspaceFolder": "/workspaces/pepper-ui-react",
+    "runArgs": [
+        "-v",
+        "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro",
+        "-v",
+        "devcontainer-settings:/local",
+        "-v",
+        "pepper-ui-react-node_modules:/workspaces/pepper-ui-react/node_modules",
+        "--cap-add",
+        "SYS_ADMIN"
+    ],
+    "appPort": [
+        // if you want to change the port numbers used by the server, edit the dev script command in package.json
+        "3000:3000", // the dev server itself, this can't be just 3000 since then the only allowed host is 127.0.0.1 (localhost)
+        "1337:1337" // storybook
+    ],
+    // Uncomment the next line to have VS Code connect as an existing non-root user in the container. See
+    // https://aka.ms/vscode-remote/containers/non-root for details on adding a non-root user if none exist.
+    // "remoteUser": "node",
+    // Add the IDs of extensions you want installed when the container is created in the array below.
+    "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+}
